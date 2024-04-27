@@ -1,0 +1,1 @@
+export {PermissionsContactScreen} from './PermissionsContactScreen';
