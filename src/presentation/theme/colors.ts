@@ -10,25 +10,13 @@ export const opacityColor = (color: string, opacity: number): string => {
 
   return `${hexWithoutOpacity}${alphaHex}`;
 };
-export const COLORS_LIGHT = {
-  primary: '#761CBC',
-  secondary: '#EC441E',
+export const COLORS = {
+  primary: '#EA6613',
+  secondary: '#2233E7',
   text_light: '#fff',
-  text_dark: '#385167',
+  text_dark: '#212B36',
   bg_screen: '#F7FBFD',
   gray: '#E0E0E0',
+  grayInput: '#C5CED6',
+  opacityColor,
 };
-
-export const COLORS_DARK = {
-  primary: '#761CBC',
-  secondary: '#EC441E',
-  text_light: '#fff',
-  text_dark: '#385167',
-  bg_screen: '#000',
-  purple: '#EDE9FF',
-  yellow: '#FFF5D7',
-  green: '#E4FFEA',
-  gray: '#E0E0E0',
-};
-
-export const COLORS = {...COLORS_LIGHT, opacityColor};

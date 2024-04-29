@@ -1,6 +1,14 @@
 import React from 'react';
-import {AppText} from '@pr/components';
+import {Container} from '@pr/components/Container';
+
+import {Header} from './Header';
+import {ListModalContacts} from '@pr/components';
 
 export const HomeScreen = () => {
-  return <AppText>{'HomeScreen'}</AppText>;
+  return (
+    <Container>
+      <Header />
+      <ListModalContacts />
+    </Container>
+  );
 };

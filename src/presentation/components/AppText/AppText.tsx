@@ -1,3 +1,4 @@
+import {COLORS} from '@pr/theme';
 import React from 'react';
 import {StyleSheet, Text, TextStyle} from 'react-native';
 import {normalize} from './normalize';
@@ -14,9 +15,9 @@ export const SIZE_TEXT = {
 };
 
 const WEIGHT = {
-  BOLD: 'Poppins-Bold',
-  MEDIUM: 'Poppins-Medium',
-  REGULAR: 'Poppins-Regular',
+  BOLD: 'bold',
+  MEDIUM: 400,
+  REGULAR: 'black',
 };
 
 export const AppText = ({
@@ -32,9 +33,9 @@ export const AppText = ({
       style={[
         styleProps,
         {
-          fontFamily: WEIGHT[weight],
+          fontWeight: WEIGHT[weight] as any,
           textAlign: align,
-          ...(color && {color}),
+          color: color ?? COLORS.text_dark,
         },
       ]}
       {...nativeProps}>

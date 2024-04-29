@@ -1,0 +1,1 @@
+export {ListModalContacts} from './ListModalContacts';
