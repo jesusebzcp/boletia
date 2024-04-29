@@ -3,8 +3,8 @@ import {SafeAreaView, StyleSheet, View} from 'react-native';
 
 import {AppButton, AppText} from '@pr/components';
 import {SvgContact} from '@pr/assets/svg/SvgContact';
-import {useContacts} from '@app/context/ContactContext';
 import {COLORS, METRICS} from '@pr/theme';
+import {useContacts} from '@app/context/ContactContext/ContactContext';
 
 export const PermissionsContactScreen = () => {
   const {requestPermissionsContact} = useContacts();

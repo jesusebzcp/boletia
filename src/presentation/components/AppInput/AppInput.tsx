@@ -46,5 +46,6 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 56,
+    color: COLORS.gray,
   },
 });

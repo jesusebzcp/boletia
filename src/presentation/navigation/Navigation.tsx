@@ -6,10 +6,10 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {HomeScreen} from '@pr/screens/HomeScreen';
 
 import {MainStackParamList, SCREEN_NAME} from './types';
-import {useContacts} from '@app/context/ContactContext';
 import {PermissionsContactScreen} from '@pr/screens/PermissionsContactScreen';
 import {SplashScreen} from '@pr/screens/SplashScreen';
 import {ContactDetailScreen} from '@pr/screens/ContactDetailScreen';
+import {useContacts} from '@app/context/ContactContext/ContactContext';
 
 const MainStack = createStackNavigator<MainStackParamList>();
 
@@ -36,6 +36,7 @@ export const Navigation = () => {
       </>
     );
   }, [permissionsActive]);
+
   return (
     <NavigationContainer>
       <MainStack.Navigator

@@ -34,6 +34,9 @@ export const Avatar = ({alt, image, size = SIZE}: AvatarProps) => {
         <AppText
           weight="BOLD"
           color={textColor}
+          style={{
+            fontSize: size / 2,
+          }}
           nativeProps={{
             adjustsFontSizeToFit: true,
             numberOfLines: 1,

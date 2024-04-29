@@ -1,8 +1,8 @@
 import React, {useCallback, useEffect} from 'react';
 import {AppText} from '@pr/components';
 import {SplashScreenProps} from './props';
-import {useContacts} from '@app/context/ContactContext';
 import {SCREEN_NAME} from '@pr/navigation/types';
+import {useContacts} from '@app/context/ContactContext/ContactContext';
 
 export const SplashScreen = ({navigation}: SplashScreenProps) => {
   const {permissionsActive} = useContacts();

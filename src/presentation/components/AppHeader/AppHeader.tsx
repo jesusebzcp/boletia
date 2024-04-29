@@ -14,7 +14,7 @@ export const AppHeader = ({title}: AppHeaderProps) => {
       <TouchableOpacity style={styles.button} onPress={navigation.goBack}>
         <SvgArrowBack />
       </TouchableOpacity>
-      <AppText.H2 color={COLORS.primary} weight="MEDIUM">
+      <AppText.H2 color={COLORS.text_dark} weight="MEDIUM">
         {title}
       </AppText.H2>
     </View>
@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginHorizontal: METRICS.spacingHorizontal,
     paddingVertical: METRICS.spacingVertical,
   },
   button: {

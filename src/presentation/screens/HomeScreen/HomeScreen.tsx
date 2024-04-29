@@ -3,7 +3,7 @@ import {Container} from '@pr/components/Container';
 
 import {Header} from './Header';
 import {ListModalContacts} from '@pr/components';
-import {useContacts} from '@app/context/ContactContext';
+import {useContacts} from '@app/context/ContactContext/ContactContext';
 
 export const HomeScreen = () => {
   const {contacts, recentContacts} = useContacts();

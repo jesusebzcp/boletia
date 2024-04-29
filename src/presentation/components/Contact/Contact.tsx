@@ -9,8 +9,8 @@ import {COLORS} from '@pr/theme';
 
 import {AppText} from '../AppText';
 import {Avatar} from '../Avatar';
-import {useContacts} from '@app/context/ContactContext';
 import {ContactProps} from './props';
+import {useContacts} from '@app/context/ContactContext/ContactContext';
 
 export const Contact = (props: ContactProps) => {
   const {saveRecent} = useContacts();

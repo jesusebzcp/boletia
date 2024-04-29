@@ -1,20 +1,25 @@
 import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
+import {Contact as ContactType} from 'react-native-contacts';
 import BottomSheet, {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 
+import {useSearch} from '@app/context/SearchContext';
 import {COLORS, METRICS} from '@pr/theme';
 
 import {ButtonTops, SELECT_BUTTON} from './ButtonsTops';
+import {ListModalContactsProps} from './props';
+
 import {AppText} from '../AppText';
 import {Contact} from '../Contact';
 
-import {ListModalContactsProps} from './props';
+const cleanKeyword = (keyword: string) => keyword?.toLowerCase()?.trim();
 
 export const ListModalContacts = ({
   contacts,
   recentList,
 }: ListModalContactsProps) => {
   const sheetRef = useRef<BottomSheet>(null);
+  const {searchQuery} = useSearch();
 
   const [selectButton, setSelectButton] = useState(SELECT_BUTTON.RECENT);
 
@@ -36,6 +41,18 @@ export const ListModalContacts = ({
     [],
   );
 
+  const filterSearch = useCallback(
+    (contactsList: ContactType[]) => {
+      if (searchQuery.length > 2) {
+        return contactsList.filter(c =>
+          cleanKeyword(c.displayName)?.includes(cleanKeyword(searchQuery)),
+        );
+      }
+      return contactsList;
+    },
+    [searchQuery],
+  );
+
   const contactsFilter = useMemo(() => {
     if (selectButton === SELECT_BUTTON.ALL) {
       return contacts;
@@ -48,12 +65,15 @@ export const ListModalContacts = ({
       <AppText.H4 weight="BOLD">{'Mis contactos'}</AppText.H4>
       <ButtonTops select={selectButton} onChange={setSelectButton} />
       <BottomSheetFlatList
-        data={contactsFilter}
+        data={filterSearch(contactsFilter)}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         contentContainerStyle={styles.contentContainer}
         ItemSeparatorComponent={ItemSeparatorComponent}
         ListEmptyComponent={ListEmptyComponent}
+        maxToRenderPerBatch={20}
+        initialNumToRender={10}
+        removeClippedSubviews
       />
     </BottomSheet>
   );
