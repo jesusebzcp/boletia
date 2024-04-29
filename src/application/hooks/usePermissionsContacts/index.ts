@@ -1,0 +1,1 @@
+export {usePermissionsContacts} from './usePermissionsContacts';

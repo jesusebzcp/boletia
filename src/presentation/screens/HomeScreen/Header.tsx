@@ -10,7 +10,11 @@ import {SearchBar} from './SearchBar';
 export const Header = () => {
   return (
     <View style={styles.content}>
-      <StatusBar translucent backgroundColor={'transparent'} />
+      <StatusBar
+        translucent
+        backgroundColor={'transparent'}
+        barStyle={'dark-content'}
+      />
       <View style={styles.subHeader}>
         <SvgLogo />
         <View style={styles.svgImage}>
