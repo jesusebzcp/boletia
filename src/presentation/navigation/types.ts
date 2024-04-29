@@ -1,3 +1,5 @@
+import {Contact} from 'react-native-contacts';
+
 export enum SCREEN_NAME {
   SPLASH_SCREEN = 'SPLASH_SCREEN',
   PERMISSIONS_CONTACT = 'PERMISSIONS_CONTACT',
@@ -8,5 +10,7 @@ export type MainStackParamList = {
   [SCREEN_NAME.SPLASH_SCREEN]?: {};
   [SCREEN_NAME.PERMISSIONS_CONTACT]?: {};
   [SCREEN_NAME.HOME]?: {};
-  [SCREEN_NAME.CONTACT_DETAIL]?: {};
+  [SCREEN_NAME.CONTACT_DETAIL]?: {
+    contact: Contact;
+  };
 };

@@ -1,6 +1,11 @@
 import React from 'react';
-import {AppText} from '@pr/components';
+import {SafeAreaView} from 'react-native';
+import {AppHeader} from '@pr/components/AppHeader';
 
 export const ContactDetailScreen = () => {
-  return <AppText>{'ContactDetailScreen'}</AppText>;
+  return (
+    <SafeAreaView>
+      <AppHeader title={'Detalle de contacto'} />
+    </SafeAreaView>
+  );
 };

@@ -6,11 +6,11 @@ import {ListModalContacts} from '@pr/components';
 import {useContacts} from '@app/context/ContactContext';
 
 export const HomeScreen = () => {
-  const {contacts} = useContacts();
+  const {contacts, recentContacts} = useContacts();
   return (
     <Container>
       <Header />
-      <ListModalContacts contacts={contacts} />
+      <ListModalContacts recentList={recentContacts} contacts={contacts} />
     </Container>
   );
 };

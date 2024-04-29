@@ -6,7 +6,7 @@ import {AppText} from '../AppText';
 import {AVATAR_COLORS} from './colors';
 import type {AvatarProps} from './props';
 
-const SIZE = METRICS.screenWidth * 0.14;
+const SIZE = METRICS.screenWidth * 0.12;
 
 export const Avatar = ({alt, image, size = SIZE}: AvatarProps) => {
   const backgroundColor = useMemo(() => {

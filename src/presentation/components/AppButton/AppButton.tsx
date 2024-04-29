@@ -9,10 +9,11 @@ export const AppButton = ({
   children,
   customStyles = {},
   onPress,
+  colorText = COLORS.text_light,
 }: AppButtonProps) => {
   return (
     <TouchableOpacity style={[styles.button, customStyles]} onPress={onPress}>
-      <AppText.H4 color={COLORS.text_light} weight="MEDIUM">
+      <AppText.H4 color={colorText} weight="MEDIUM">
         {children}
       </AppText.H4>
     </TouchableOpacity>

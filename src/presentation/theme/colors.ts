@@ -16,7 +16,7 @@ export const COLORS = {
   text_light: '#fff',
   text_dark: '#212B36',
   bg_screen: '#F7FBFD',
-  gray: '#E0E0E0',
+  gray: '#637381',
   grayInput: '#C5CED6',
   opacityColor,
 };

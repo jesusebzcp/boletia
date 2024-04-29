@@ -5,5 +5,5 @@ export const METRICS = {
   screenWidth: width < height ? width : height,
   screenHeight: width < height ? height : width,
   spacingHorizontal: 20,
-  spacingVertical: 10,
+  spacingVertical: 20,
 };
