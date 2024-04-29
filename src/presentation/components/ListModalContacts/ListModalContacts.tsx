@@ -7,34 +7,29 @@ import {COLORS, METRICS} from '@pr/theme';
 import {AppText} from '../AppText';
 import {ButtonTops, SELECT_BUTTON} from './ButtonsTops';
 import {Contact} from '../Contact';
+import {ListModalContactsProps} from './props';
 
-export const ListModalContacts = () => {
+export const ListModalContacts = ({contacts}: ListModalContactsProps) => {
   const sheetRef = useRef<BottomSheet>(null);
 
   const [selectButton, setSelectButton] = useState(SELECT_BUTTON.RECENT);
 
-  const snapPoints = useMemo(() => ['40%', '70%'], []);
-  const data = useMemo(
-    () =>
-      Array(50)
-        .fill(0)
-        .map((_, index) => `index-${index}`),
-    [],
-  );
+  const snapPoints = useMemo(() => ['40%', '60%'], []);
 
   const ItemSeparatorComponent = useCallback(
     () => <View style={styles.separator} />,
     [],
   );
 
-  const renderItem = useCallback(({}) => <Contact />, []);
+  const renderItem = useCallback(({item}) => <Contact {...item} />, []);
+  const keyExtractor = useCallback((_, i) => i, []);
   return (
     <BottomSheet ref={sheetRef} snapPoints={snapPoints} style={styles.content}>
       <AppText.H4 weight="BOLD">{'Mis contactos'}</AppText.H4>
       <ButtonTops select={selectButton} onChange={setSelectButton} />
       <BottomSheetFlatList
-        data={data}
-        keyExtractor={i => i}
+        data={contacts}
+        keyExtractor={keyExtractor}
         renderItem={renderItem}
         contentContainerStyle={styles.contentContainer}
         ItemSeparatorComponent={ItemSeparatorComponent}

@@ -1,16 +1,31 @@
-import {SvgRight} from '@pr/assets/svg/SvgRight';
-import React from 'react';
+import React, {useMemo} from 'react';
 import {StyleSheet, View} from 'react-native';
+import {Contact as ContactType} from 'react-native-contacts';
+import {SvgRight} from '@pr/assets/svg/SvgRight';
+
 import {AppText} from '../AppText';
 import {Avatar} from '../Avatar';
 
-export const Contact = () => {
+export const Contact = ({
+  displayName,
+  phoneNumbers,
+  thumbnailPath,
+}: ContactType) => {
+  const phoneNumber = useMemo(() => {
+    if (phoneNumbers.length > 0) {
+      const mainPhoneNumber = phoneNumbers[0];
+      return `📞 ${
+        mainPhoneNumber.number
+      } ● ${mainPhoneNumber?.label.toUpperCase()}`;
+    }
+    return '';
+  }, [phoneNumbers]);
   return (
     <View style={styles.content}>
-      <Avatar alt={'Jesus Bri'} />
+      <Avatar alt={displayName} image={thumbnailPath} />
       <View style={styles.information}>
-        <AppText>{'Jesus'}</AppText>
-        <AppText>{'📞 Jesus'}</AppText>
+        <AppText weight="BOLD">{displayName}</AppText>
+        <AppText>{phoneNumber}</AppText>
       </View>
       <View>
         <SvgRight />

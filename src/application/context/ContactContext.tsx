@@ -7,19 +7,34 @@ import React, {
   useContext,
   useCallback,
 } from 'react';
-import {Contact} from 'react-native-contacts';
-import {ContactContextType} from './props';
+import {Alert} from 'react-native';
+import Contacts, {Contact} from 'react-native-contacts';
 import {usePermissionsContacts} from '@app/hooks/usePermissionsContacts';
+
+import {ContactContextType} from './props';
 
 export const ContactContext = createContext<ContactContextType | undefined>(
   undefined,
 );
 
 export const ContactProvider = ({children}: PropsWithChildren) => {
-  const [contacts] = useState<Contact[]>([]);
+  const [contacts, setContacts] = useState<Contact[]>([]);
   const [permissionsActive, setPermissionsActive] = useState(false);
+
   const {checkPermissionsContacts, requestPermissionsContacts} =
     usePermissionsContacts();
+
+  const handleFindContacts = useCallback(async () => {
+    try {
+      const response = await Contacts.getAll();
+      setContacts(response);
+    } catch (error) {
+      Alert.alert(
+        'Ups',
+        'Ocurrió un error inesperado en obtener los contactos',
+      );
+    }
+  }, []);
 
   const requestPermissionsContact = useCallback(() => {
     requestPermissionsContacts(setPermissionsActive);
@@ -28,6 +43,12 @@ export const ContactProvider = ({children}: PropsWithChildren) => {
   useEffect(() => {
     checkPermissionsContacts(setPermissionsActive);
   }, [checkPermissionsContacts]);
+
+  useEffect(() => {
+    if (permissionsActive) {
+      handleFindContacts();
+    }
+  }, [handleFindContacts, permissionsActive]);
 
   const valueContext = useMemo(
     () => ({
