@@ -1,7 +1,6 @@
 import React from 'react';
 import {Navigation} from '@pr/navigation/Navigation';
-import {ContactProvider} from '@app/context/ContactContext';
-import {SearchProvider} from '@app/context/SearchContext';
+import {ContactProvider, SearchProvider} from '@app/context';
 
 export default function App() {
   return (

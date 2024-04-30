@@ -1,9 +1,9 @@
 import React, {useMemo} from 'react';
 import {StyleSheet, View} from 'react-native';
 
-import {AppInput} from '@pr/components/AppInput';
+import {AppInput} from '@pr/components';
 import {SvgSearch} from '@pr/assets/svg/SvgSearch';
-import {useSearch} from '@app/context/SearchContext';
+import {useSearch} from '@app/context';
 
 export const SearchBar = () => {
   const {searchQuery, setSearchQuery} = useSearch();

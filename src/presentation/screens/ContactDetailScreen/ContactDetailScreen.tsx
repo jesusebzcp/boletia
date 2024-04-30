@@ -2,16 +2,17 @@ import React, {useCallback, useMemo} from 'react';
 import {Linking, Platform, SafeAreaView, StyleSheet, View} from 'react-native';
 import Share from 'react-native-share';
 
-import {AppHeader} from '@pr/components/AppHeader';
+import {AppHeader, InputSection} from '@pr/components';
 import {METRICS} from '@pr/theme';
+
+import {SvgCall} from '@pr/assets/svg/SvgCall';
+import {SvgShared} from '@pr/assets/svg/SvgShared';
+import {SvgMessage} from '@pr/assets/svg/SvgMessage';
 
 import {HeaderContact} from './HeaderContact';
 import {ListAction} from './ListAction';
+
 import {ContactDetailScreenProps} from './props';
-import {SvgShared} from '@pr/assets/svg/SvgShared';
-import {SvgMessage} from '@pr/assets/svg/SvgMessage';
-import {SvgCall} from '@pr/assets/svg/SvgCall';
-import {InputSection} from '@pr/components/InputSection';
 
 export const ContactDetailScreen = ({route}: ContactDetailScreenProps) => {
   const contact = route.params.contact;

@@ -9,12 +9,13 @@ import React, {
 } from 'react';
 import {Alert} from 'react-native';
 import Contacts, {Contact} from 'react-native-contacts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as _ from 'lodash';
+import dayjs from 'dayjs';
+
 import {usePermissionsContacts} from '@app/hooks/usePermissionsContacts';
 
 import {ContactContextType} from './props';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import dayjs from 'dayjs';
-import * as _ from 'lodash';
 
 export const ContactContext = createContext<ContactContextType | undefined>(
   undefined,

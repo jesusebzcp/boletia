@@ -4,8 +4,8 @@ import LottieView from 'lottie-react-native';
 
 import {IMAGES, METRICS} from '@pr/theme';
 import {AppText} from '@pr/components';
+import {useContacts} from '@app/context';
 import {SCREEN_NAME} from '@pr/navigation/types';
-import {useContacts} from '@app/context/ContactContext/ContactContext';
 
 import {SplashScreenProps} from './props';
 

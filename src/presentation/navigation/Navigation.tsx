@@ -9,7 +9,7 @@ import {MainStackParamList, SCREEN_NAME} from './types';
 import {PermissionsContactScreen} from '@pr/screens/PermissionsContactScreen';
 import {SplashScreen} from '@pr/screens/SplashScreen';
 import {ContactDetailScreen} from '@pr/screens/ContactDetailScreen';
-import {useContacts} from '@app/context/ContactContext/ContactContext';
+import {useContacts} from '@app/context';
 
 const MainStack = createStackNavigator<MainStackParamList>();
 

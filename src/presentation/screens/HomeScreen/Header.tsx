@@ -3,8 +3,9 @@ import {View, StyleSheet, StatusBar} from 'react-native';
 import LottieView from 'lottie-react-native';
 
 import {SvgLogo} from '@pr/assets/svg/SvgLogo';
-import {AppText} from '@pr/components';
 import {COLORS, IMAGES, METRICS} from '@pr/theme';
+import {AppText} from '@pr/components';
+
 import {SearchBar} from './SearchBar';
 
 const SIZE_LOTTIE = METRICS.screenHeight * 0.5;

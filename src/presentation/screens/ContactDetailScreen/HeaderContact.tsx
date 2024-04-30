@@ -1,9 +1,10 @@
-import {AppText, Avatar} from '@pr/components';
-import {MainStackParamList, SCREEN_NAME} from '@pr/navigation/types';
-import {METRICS} from '@pr/theme';
-import {RouteProp, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+import {RouteProp, useRoute} from '@react-navigation/native';
+
+import {MainStackParamList, SCREEN_NAME} from '@pr/navigation/types';
+import {AppText, Avatar} from '@pr/components';
+import {METRICS} from '@pr/theme';
 
 const SIZE_AVATAR = METRICS.screenWidth * 0.3;
 

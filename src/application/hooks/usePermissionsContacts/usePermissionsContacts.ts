@@ -5,22 +5,22 @@ import {PERMISSIONS, check, request} from 'react-native-permissions';
 
 export const usePermissionsContacts = () => {
   const checkPermissionsContacts = useCallback(
-    async (set: (value: boolean) => void) => {
+    async (setValue: (value: boolean) => void) => {
       try {
         const checkPermissions = Platform.select({
           android: () => check(PERMISSIONS.ANDROID.READ_CONTACTS),
           ios: () => check(PERMISSIONS.IOS.CONTACTS),
         });
         const response = (await checkPermissions()) as PermissionState;
-        set(response === 'granted');
+        setValue(response === 'granted');
       } catch (error) {
-        set(false);
+        setValue(false);
       }
     },
     [],
   );
   const requestPermissionsContacts = useCallback(
-    async (set: (value: boolean) => void) => {
+    async (setValue: (value: boolean) => void) => {
       try {
         const requestPermissions = Platform.select({
           android: () => request(PERMISSIONS.ANDROID.READ_CONTACTS),
@@ -28,10 +28,10 @@ export const usePermissionsContacts = () => {
         });
         const response = (await requestPermissions()) as PermissionState;
         console.log('response', response);
-        set(response === 'granted');
+        setValue(response === 'granted');
       } catch (error) {
         console.log('error', error);
-        set(false);
+        setValue(false);
       }
     },
     [],

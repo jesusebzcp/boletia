@@ -3,7 +3,7 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import dayjs from 'dayjs';
 
-import {useContacts} from '@app/context/ContactContext/ContactContext';
+import {useContacts} from '@app/context';
 import {MainStackParamList, SCREEN_NAME} from '@pr/navigation/types';
 
 import {SvgRight} from '@pr/assets/svg/SvgRight';

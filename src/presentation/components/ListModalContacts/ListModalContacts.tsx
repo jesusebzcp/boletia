@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {Contact as ContactType} from 'react-native-contacts';
 import BottomSheet, {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 
-import {useSearch} from '@app/context/SearchContext';
+import {useSearch} from '@app/context';
 import {useKeyboard} from '@app/hooks/useKeyboard';
 import {COLORS, METRICS} from '@pr/theme';
 
