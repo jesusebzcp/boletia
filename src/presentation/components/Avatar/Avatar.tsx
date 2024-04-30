@@ -42,7 +42,7 @@ export const Avatar = ({alt, image, size = SIZE}: AvatarProps) => {
             numberOfLines: 1,
             minimumFontScale: 0.1,
           }}>
-          {alt.length > 0 ? alt[0] : 'A'}
+          {alt?.length > 0 ? alt[0] : 'A'}
         </AppText>
       );
     }

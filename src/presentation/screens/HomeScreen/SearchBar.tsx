@@ -25,6 +25,7 @@ export const SearchBar = () => {
 
 const styles = StyleSheet.create({
   content: {
-    marginVertical: 10,
+    marginVertical: 20,
+    zIndex: 3,
   },
 });

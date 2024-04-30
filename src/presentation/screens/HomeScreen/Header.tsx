@@ -1,11 +1,13 @@
 import React from 'react';
-import {View, StyleSheet, StatusBar, Platform} from 'react-native';
+import {View, StyleSheet, StatusBar} from 'react-native';
+import LottieView from 'lottie-react-native';
 
 import {SvgLogo} from '@pr/assets/svg/SvgLogo';
-import {SvgMessage} from '@pr/assets/svg/SvgMessage';
 import {AppText} from '@pr/components';
-import {COLORS, METRICS} from '@pr/theme';
+import {COLORS, IMAGES, METRICS} from '@pr/theme';
 import {SearchBar} from './SearchBar';
+
+const SIZE_LOTTIE = METRICS.screenHeight * 0.5;
 
 export const Header = () => {
   return (
@@ -14,16 +16,20 @@ export const Header = () => {
       <View style={styles.subHeader}>
         <SvgLogo />
         <View style={styles.svgImage}>
-          <SvgMessage />
+          <LottieView
+            source={IMAGES.home_animation}
+            style={styles.lottie}
+            autoPlay
+            resizeMode="contain"
+            loop
+          />
         </View>
       </View>
-      <View>
-        <AppText.H5 color={COLORS.text_dark}>{'Bienvenido,'}</AppText.H5>
-        <AppText.H3 weight="BOLD" color={COLORS.text_dark}>
-          {'Usuario'}
-        </AppText.H3>
-        <SearchBar />
-      </View>
+      <AppText.H5 color={COLORS.text_dark}>{'Bienvenido,'}</AppText.H5>
+      <AppText.H3 weight="BOLD" color={COLORS.text_dark}>
+        {'Usuario'}
+      </AppText.H3>
+      <SearchBar />
     </View>
   );
 };
@@ -33,15 +39,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 15,
   },
+  lottie: {
+    width: SIZE_LOTTIE,
+    height: SIZE_LOTTIE,
+  },
   svgImage: {
     position: 'absolute',
-    right: -METRICS.screenWidth * 0.1,
-    top: -METRICS.screenHeight * 0.1,
+    transform: [{rotate: '220deg'}],
+    top: -METRICS.screenHeight * 0.28,
+    right: -METRICS.screenWidth * 0.32,
   },
   content: {
-    paddingTop: Platform.select({
-      ios: 0,
-      android: 20,
-    }),
+    paddingTop: METRICS.spacingVertical * 2,
   },
 });

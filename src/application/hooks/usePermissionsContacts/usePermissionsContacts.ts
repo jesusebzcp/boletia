@@ -9,7 +9,7 @@ export const usePermissionsContacts = () => {
       try {
         const checkPermissions = Platform.select({
           android: () => check(PERMISSIONS.ANDROID.READ_CONTACTS),
-          ios: () => check(PERMISSIONS.ANDROID.READ_CONTACTS),
+          ios: () => check(PERMISSIONS.IOS.CONTACTS),
         });
         const response = (await checkPermissions()) as PermissionState;
         set(response === 'granted');
@@ -24,11 +24,13 @@ export const usePermissionsContacts = () => {
       try {
         const requestPermissions = Platform.select({
           android: () => request(PERMISSIONS.ANDROID.READ_CONTACTS),
-          ios: () => request(PERMISSIONS.ANDROID.READ_CONTACTS),
+          ios: () => request(PERMISSIONS.IOS.CONTACTS),
         });
         const response = (await requestPermissions()) as PermissionState;
+        console.log('response', response);
         set(response === 'granted');
       } catch (error) {
+        console.log('error', error);
         set(false);
       }
     },

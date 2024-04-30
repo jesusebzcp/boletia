@@ -4,6 +4,7 @@ import {Contact as ContactType} from 'react-native-contacts';
 import BottomSheet, {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 
 import {useSearch} from '@app/context/SearchContext';
+import {useKeyboard} from '@app/hooks/useKeyboard';
 import {COLORS, METRICS} from '@pr/theme';
 
 import {ButtonTops, SELECT_BUTTON} from './ButtonsTops';
@@ -18,12 +19,13 @@ export const ListModalContacts = ({
   contacts,
   recentList,
 }: ListModalContactsProps) => {
+  const {keyboardShown} = useKeyboard();
   const sheetRef = useRef<BottomSheet>(null);
   const {searchQuery} = useSearch();
 
   const [selectButton, setSelectButton] = useState(SELECT_BUTTON.RECENT);
 
-  const snapPoints = useMemo(() => ['40%', '60%'], []);
+  const snapPoints = useMemo(() => ['40%', '65%'], []);
 
   const ItemSeparatorComponent = useCallback(
     () => <View style={styles.separator} />,
@@ -60,8 +62,14 @@ export const ListModalContacts = ({
     return recentList;
   }, [contacts, recentList, selectButton]);
 
+  const positionIndex = useMemo(() => (keyboardShown ? 1 : 0), [keyboardShown]);
   return (
-    <BottomSheet ref={sheetRef} snapPoints={snapPoints} style={styles.content}>
+    <BottomSheet
+      keyboardBehavior="fillParent"
+      ref={sheetRef}
+      index={positionIndex}
+      snapPoints={snapPoints}
+      style={styles.content}>
       <AppText.H4 weight="BOLD">{'Mis contactos'}</AppText.H4>
       <ButtonTops select={selectButton} onChange={setSelectButton} />
       <BottomSheetFlatList

@@ -17,23 +17,26 @@ export const Navigation = () => {
   const {permissionsActive} = useContacts();
 
   const showScreen = useMemo(() => {
-    if (!permissionsActive) {
+    if (permissionsActive) {
       return (
-        <MainStack.Screen
-          name={SCREEN_NAME.PERMISSIONS_CONTACT}
-          component={PermissionsContactScreen}
-        />
+        <>
+          <MainStack.Screen
+            name={SCREEN_NAME.SPLASH_SCREEN}
+            component={SplashScreen}
+          />
+          <MainStack.Screen name={SCREEN_NAME.HOME} component={HomeScreen} />
+          <MainStack.Screen
+            name={SCREEN_NAME.CONTACT_DETAIL}
+            component={ContactDetailScreen}
+          />
+        </>
       );
     }
-
     return (
-      <>
-        <MainStack.Screen name={SCREEN_NAME.HOME} component={HomeScreen} />
-        <MainStack.Screen
-          name={SCREEN_NAME.CONTACT_DETAIL}
-          component={ContactDetailScreen}
-        />
-      </>
+      <MainStack.Screen
+        name={SCREEN_NAME.PERMISSIONS_CONTACT}
+        component={PermissionsContactScreen}
+      />
     );
   }, [permissionsActive]);
 
@@ -44,10 +47,6 @@ export const Navigation = () => {
           headerShown: false,
         }}
         initialRouteName={SCREEN_NAME.SPLASH_SCREEN}>
-        <MainStack.Screen
-          name={SCREEN_NAME.SPLASH_SCREEN}
-          component={SplashScreen}
-        />
         {showScreen}
       </MainStack.Navigator>
     </NavigationContainer>

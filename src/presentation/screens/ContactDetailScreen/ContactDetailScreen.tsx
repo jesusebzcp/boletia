@@ -1,5 +1,5 @@
 import React, {useCallback, useMemo} from 'react';
-import {Linking, Platform, SafeAreaView, StyleSheet} from 'react-native';
+import {Linking, Platform, SafeAreaView, StyleSheet, View} from 'react-native';
 import Share from 'react-native-share';
 
 import {AppHeader} from '@pr/components/AppHeader';
@@ -56,24 +56,29 @@ export const ContactDetailScreen = ({route}: ContactDetailScreenProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppHeader title={'Detalle de contacto'} />
-      <HeaderContact />
-      <ListAction actions={listActions} />
-      {contact.phoneNumbers.map((phoneNumber, index) => {
-        return (
-          <InputSection
-            key={phoneNumber.number}
-            label={`Numero celular ${index + 1}`}
-            value={phoneNumber.number}
-          />
-        );
-      })}
+      <View style={styles.content}>
+        <AppHeader title={'Detalle de contacto'} />
+        <HeaderContact />
+        <ListAction actions={listActions} />
+        {contact.phoneNumbers.map((phoneNumber, index) => {
+          return (
+            <InputSection
+              key={phoneNumber.number}
+              label={`Numero celular ${index + 1}`}
+              value={phoneNumber.number}
+            />
+          );
+        })}
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  content: {
     flex: 1,
     paddingHorizontal: METRICS.spacingHorizontal,
   },

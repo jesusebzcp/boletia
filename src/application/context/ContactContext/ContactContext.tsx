@@ -48,7 +48,10 @@ export const ContactProvider = ({children}: PropsWithChildren) => {
 
   const loadRecent = useCallback(async () => {
     const dataString = await AsyncStorage.getItem(CONTACT_KEY);
-    const allContactRecent = JSON.parse(dataString);
+    const allContactRecent =
+      typeof dataString === 'undefined'
+        ? []
+        : (JSON.parse(dataString) as Contact[]);
     setRecentContacts(_.orderBy(allContactRecent, 'createAt', 'desc'));
   }, []);
 

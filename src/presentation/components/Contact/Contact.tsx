@@ -3,14 +3,15 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import dayjs from 'dayjs';
 
+import {useContacts} from '@app/context/ContactContext/ContactContext';
 import {MainStackParamList, SCREEN_NAME} from '@pr/navigation/types';
+
 import {SvgRight} from '@pr/assets/svg/SvgRight';
 import {COLORS} from '@pr/theme';
 
 import {AppText} from '../AppText';
 import {Avatar} from '../Avatar';
 import {ContactProps} from './props';
-import {useContacts} from '@app/context/ContactContext/ContactContext';
 
 export const Contact = (props: ContactProps) => {
   const {saveRecent} = useContacts();
@@ -26,7 +27,7 @@ export const Contact = (props: ContactProps) => {
   }, [navigation, props, saveRecent]);
 
   const phoneNumber = useMemo(() => {
-    if (phoneNumbers.length > 0) {
+    if (phoneNumbers?.length > 0) {
       const mainPhoneNumber = phoneNumbers[0];
       return `📞 ${mainPhoneNumber.number} ● ${
         props.createAt
