@@ -1,3 +1,18 @@
+# Technical Exercise Documentation
+
+# Features:
+
+- Permissions to read contacts
+- Contact reading
+- Contact list
+- Contact details
+- Contact actions such as: call, share and email
+- Contact search
+
+# What architecture do you use? 3-layer architecture
+The three-tier architecture is a well-established software application architecture, which organizes applications into three logical and physical computing tiers: the presentation or user interface tier, the application tier, where data is processed, and the data center, where the data associated with the application is stored and managed.
+  
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
