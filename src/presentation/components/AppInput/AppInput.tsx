@@ -6,6 +6,7 @@ import {AppInputProps} from './props';
 export const AppInput = ({
   ph,
   iconRight,
+  iconLeft,
   nativeProps,
   onChangeText,
   value,
@@ -23,6 +24,7 @@ export const AppInput = ({
         onChangeText={onChangeText}
         cursorColor={COLORS.primary}
       />
+      {iconLeft && <View style={styles.iconLeft}>{iconLeft}</View>}
     </View>
   );
 };
@@ -43,9 +45,14 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: 3,
     paddingHorizontal: 10,
+    position: 'relative',
   },
   input: {
     height: 56,
     color: COLORS.gray,
+  },
+  iconLeft: {
+    position: 'absolute',
+    right: 10,
   },
 });

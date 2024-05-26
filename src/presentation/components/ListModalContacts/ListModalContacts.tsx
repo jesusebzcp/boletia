@@ -1,6 +1,6 @@
 import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Contact as ContactType} from '@jesusebzcp/react-native-rncalendar';
+import {Contact as ContactType} from '@jesusebzcp/rn-contacts';
 
 import BottomSheet, {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 

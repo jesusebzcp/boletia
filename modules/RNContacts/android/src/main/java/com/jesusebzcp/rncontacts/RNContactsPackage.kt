@@ -1,4 +1,4 @@
-package com.jesusebzcp.reactnativerncalendar
+package com.jesusebzcp.rncontacts
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

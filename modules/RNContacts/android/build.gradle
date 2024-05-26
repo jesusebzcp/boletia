@@ -44,7 +44,7 @@ def supportsNamespace() {
 
 android {
   if (supportsNamespace()) {
-    namespace "com.jesusebzcp.reactnativerncalendar"
+    namespace "com.jesusebzcp.rncontacts"
 
     sourceSets {
       main {

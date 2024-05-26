@@ -7,7 +7,6 @@ import React, {
   useContext,
   useCallback,
 } from 'react';
-import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as _ from 'lodash';
 import dayjs from 'dayjs';
@@ -15,8 +14,9 @@ import dayjs from 'dayjs';
 import {usePermissionsContacts} from '@app/hooks/usePermissionsContacts';
 
 import {ContactContextType} from './props';
-import {Contact, getContacts} from '@jesusebzcp/react-native-rncalendar';
+import {Contact} from '@jesusebzcp/rn-contacts';
 import {useSearch} from '../SearchContext';
+import {useContactsQuery} from '@infra/useContactsQuery';
 
 export const ContactContext = createContext<ContactContextType | undefined>(
   undefined,
@@ -26,29 +26,25 @@ const CONTACT_KEY = 'contacts';
 
 export const ContactProvider = ({children}: PropsWithChildren) => {
   const {searchQuery} = useSearch();
-  const [contacts, setContacts] = useState<Contact[]>([]);
   const [recentContacts, setRecentContacts] = useState<Contact[]>([]);
-  const [permissionsActive, setPermissionsActive] = useState(false);
 
-  const {checkPermissionsContacts, requestPermissionsContacts} =
-    usePermissionsContacts();
+  const {
+    permissionsActive,
+    isLoadingCheck,
+    checkPermissionsContacts,
+    requestPermissionsContacts,
+  } = usePermissionsContacts();
 
-  const handleFindContacts = useCallback(async () => {
-    try {
-      const response = await getContacts(searchQuery);
-      console.log('response', response);
-      setContacts(response);
-    } catch (error) {
-      Alert.alert(
-        'Ups',
-        'Ocurrió un error inesperado en obtener los contactos',
-      );
-    }
-  }, [searchQuery]);
+  const {contacts, isLoadingQueryContacts} = useContactsQuery({
+    searchQuery,
+    permissionsActive,
+  });
 
   const requestPermissionsContact = useCallback(() => {
-    requestPermissionsContacts(setPermissionsActive);
+    requestPermissionsContacts();
   }, [requestPermissionsContacts]);
+
+  //Recants
 
   const loadRecent = useCallback(async () => {
     const dataString = await AsyncStorage.getItem(CONTACT_KEY);
@@ -95,31 +91,52 @@ export const ContactProvider = ({children}: PropsWithChildren) => {
     [loadRecent, updateContactRecent],
   );
 
-  useEffect(() => {
-    checkPermissionsContacts(setPermissionsActive);
-    loadRecent();
-  }, [checkPermissionsContacts, loadRecent]);
+  //Groups
+  const saveContactByGroup = useCallback(
+    async (groupId: string, contact: Contact) => {
+      const allContactByGroupsString = await AsyncStorage.getItem(groupId);
+      const allContactByGroups = JSON.parse(allContactByGroupsString) || [];
+      const updateGroups = [...allContactByGroups, contact];
+      await AsyncStorage.setItem(groupId, JSON.stringify(updateGroups));
+    },
+    [],
+  );
+  const findContactByGroups = useCallback(
+    async (groupId: string): Promise<Contact[]> => {
+      const allContactByGroupsString = await AsyncStorage.getItem(groupId);
+      const allContactByGroups = JSON.parse(allContactByGroupsString) || [];
+      return allContactByGroups;
+    },
+    [],
+  );
 
   useEffect(() => {
-    if (permissionsActive) {
-      handleFindContacts();
-    }
-  }, [handleFindContacts, permissionsActive]);
+    loadRecent();
+  }, [checkPermissionsContacts, loadRecent]);
 
   const valueContext = useMemo(
     () => ({
       contacts,
       recentContacts,
       permissionsActive,
+      isLoadingQueryContacts,
+      isLoadingCheck,
       requestPermissionsContact,
       saveRecent,
+
+      saveContactByGroup,
+      findContactByGroups,
     }),
     [
       contacts,
-      permissionsActive,
       recentContacts,
+      permissionsActive,
+      isLoadingQueryContacts,
+      isLoadingCheck,
       requestPermissionsContact,
       saveRecent,
+      saveContactByGroup,
+      findContactByGroups,
     ],
   );
 

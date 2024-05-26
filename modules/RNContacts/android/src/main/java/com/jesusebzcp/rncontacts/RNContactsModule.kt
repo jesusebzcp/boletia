@@ -1,4 +1,4 @@
-package com.jesusebzcp.reactnativerncalendar
+package com.jesusebzcp.rncontacts
 
 import android.Manifest
 import android.app.Activity

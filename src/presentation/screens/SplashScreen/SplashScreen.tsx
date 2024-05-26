@@ -12,15 +12,19 @@ import {SplashScreenProps} from './props';
 const WIDTH_LOTTIE = METRICS.screenWidth * 0.3;
 
 export const SplashScreen = ({navigation}: SplashScreenProps) => {
-  const {permissionsActive} = useContacts();
+  const {permissionsActive, isLoadingCheck} = useContacts();
 
   const handleNavigate = useCallback(() => {
     setTimeout(() => {
-      navigation.navigate(
-        permissionsActive ? SCREEN_NAME.HOME : SCREEN_NAME.PERMISSIONS_CONTACT,
-      );
+      if (!isLoadingCheck) {
+        navigation.navigate(
+          permissionsActive
+            ? SCREEN_NAME.HOME
+            : SCREEN_NAME.PERMISSIONS_CONTACT,
+        );
+      }
     }, 2000);
-  }, [navigation, permissionsActive]);
+  }, [isLoadingCheck, navigation, permissionsActive]);
 
   useEffect(() => {
     handleNavigate();

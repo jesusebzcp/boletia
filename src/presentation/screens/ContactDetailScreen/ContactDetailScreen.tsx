@@ -1,21 +1,29 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {Linking, Platform, SafeAreaView, StyleSheet, View} from 'react-native';
 import Share from 'react-native-share';
 
 import {AppHeader, InputSection} from '@pr/components';
-import {METRICS} from '@pr/theme';
+import {COLORS, METRICS} from '@pr/theme';
 
-import {SvgCall} from '@pr/assets/svg/SvgCall';
 import {SvgShared} from '@pr/assets/svg/SvgShared';
 import {SvgMessage} from '@pr/assets/svg/SvgMessage';
+import {SvgGroups} from '@pr/assets/svg/SvgGroups';
 
 import {HeaderContact} from './HeaderContact';
 import {ListAction} from './ListAction';
 
 import {ContactDetailScreenProps} from './props';
+import {ModalGroups} from './ModalGroups';
+import {useContacts} from '@app/context';
 
 export const ContactDetailScreen = ({route}: ContactDetailScreenProps) => {
+  const {saveContactByGroup} = useContacts();
   const contact = route.params.contact;
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const switchModal = useCallback(() => {
+    setIsModalOpen(prev => !prev);
+  }, []);
 
   const onCall = useCallback(() => {
     Linking.openURL(`tel:${contact.phoneNumber}`);
@@ -34,12 +42,16 @@ export const ContactDetailScreen = ({route}: ContactDetailScreenProps) => {
     });
   }, [contact.name, contact.phoneNumber]);
 
+  const addGroup = useCallback(() => {
+    setIsModalOpen(true);
+  }, []);
+
   const listActions = useMemo(
     () => [
       {
-        label: 'Llamar',
-        action: onCall,
-        Svg: <SvgCall />,
+        label: 'Agregar a grupo',
+        action: addGroup,
+        Svg: <SvgGroups stroke={COLORS.primary} />,
       },
       {
         label: 'Enviar mensaje',
@@ -52,7 +64,7 @@ export const ContactDetailScreen = ({route}: ContactDetailScreenProps) => {
         Svg: <SvgShared />,
       },
     ],
-    [onCall, onSendSMSMessage, onSharedContact],
+    [addGroup, onSendSMSMessage, onSharedContact],
   );
 
   return (
@@ -65,6 +77,14 @@ export const ContactDetailScreen = ({route}: ContactDetailScreenProps) => {
           key={contact.phoneNumber}
           label={'Numero celular'}
           value={contact.phoneNumber}
+          action={onCall}
+        />
+        <ModalGroups
+          isVisible={isModalOpen}
+          onSelect={function (id: string): void {
+            saveContactByGroup(id, contact);
+          }}
+          close={switchModal}
         />
       </View>
     </SafeAreaView>

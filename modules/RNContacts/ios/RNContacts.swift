@@ -1,12 +1,6 @@
 import Contacts
 @objc(RNContacts)
 class RNContacts: NSObject {
-
-  @objc(multiply:withB:withResolver:withRejecter:)
-  func multiply(a: Float, b: Float, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
-    resolve(a*b)
-  }
-
    @objc(checkPermissions:rejecter:)
     func checkPermissions(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
       let status = CNContactStore.authorizationStatus(for: .contacts)
