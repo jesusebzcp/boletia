@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:../modules/RNContacts"
+      name = "RNContacts">
+      <Group
+         location = "group:ios"
+         name = "ios">
+         <FileRef
+            location = "group:RNContacts.swift">
+         </FileRef>
+         <FileRef
+            location = "group:RNContacts.mm">
+         </FileRef>
+         <FileRef
+            location = "group:RNContacts-Bridging-Header.h">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:package.json">
+      </FileRef>
+      <FileRef
+         location = "group:jesusebzcp-react-native-rncalendar.podspec">
+      </FileRef>
+      <Group
+         location = "group:android"
+         name = "android">
+         <FileRef
+            location = "group:build.gradle">
+         </FileRef>
+         <FileRef
+            location = "group:gradle.properties">
+         </FileRef>
+         <Group
+            location = "group:src"
+            name = "src">
+            <Group
+               location = "group:main"
+               name = "main">
+               <FileRef
+                  location = "group:AndroidManifest.xml">
+               </FileRef>
+               <Group
+                  location = "group:java"
+                  name = "java">
+                  <Group
+                     location = "group:com"
+                     name = "com">
+                     <Group
+                        location = "group:jesusebzcp"
+                        name = "jesusebzcp">
+                        <Group
+                           location = "group:reactnativerncalendar"
+                           name = "reactnativerncalendar">
+                           <FileRef
+                              location = "group:RNContactsPackage.kt">
+                           </FileRef>
+                           <FileRef
+                              location = "group:RNContactsModule.kt">
+                           </FileRef>
+                        </Group>
+                     </Group>
+                  </Group>
+               </Group>
+               <FileRef
+                  location = "group:AndroidManifestNew.xml">
+               </FileRef>
+            </Group>
+         </Group>
+      </Group>
+      <Group
+         location = "group:src"
+         name = "src">
+         <FileRef
+            location = "group:index.tsx">
+         </FileRef>
+      </Group>
+   </Group>
    <FileRef
       location = "group:boletia.xcodeproj">
    </FileRef>
