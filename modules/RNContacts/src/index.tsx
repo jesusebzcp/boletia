@@ -32,7 +32,6 @@ export const requestContactsPermission: RequestContactsPermission =
   async () => {
     try {
       const granted = await RNContacts.requestContactsPermission();
-      console.log('granted', granted, Platform.OS);
       return granted;
     } catch (error) {
       console.error(error);

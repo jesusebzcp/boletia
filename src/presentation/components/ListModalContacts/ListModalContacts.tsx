@@ -46,14 +46,17 @@ export const ListModalContacts = ({
 
   const filterSearch = useCallback(
     (contactsList: ContactType[]) => {
+      if (selectButton === SELECT_BUTTON.ALL) {
+        return contacts;
+      }
       if (searchQuery.length > 2) {
         return contactsList.filter(c =>
-          cleanKeyword(c.displayName)?.includes(cleanKeyword(searchQuery)),
+          cleanKeyword(c.name)?.includes(cleanKeyword(searchQuery)),
         );
       }
       return contactsList;
     },
-    [searchQuery],
+    [contacts, searchQuery, selectButton],
   );
 
   const contactsFilter = useMemo(() => {
