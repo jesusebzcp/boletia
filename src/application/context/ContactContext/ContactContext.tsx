@@ -8,7 +8,6 @@ import React, {
   useCallback,
 } from 'react';
 import {Alert} from 'react-native';
-import Contacts, {Contact} from 'react-native-contacts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as _ from 'lodash';
 import dayjs from 'dayjs';
@@ -16,6 +15,8 @@ import dayjs from 'dayjs';
 import {usePermissionsContacts} from '@app/hooks/usePermissionsContacts';
 
 import {ContactContextType} from './props';
+import {Contact, getContacts} from '@jesusebzcp/react-native-rncalendar';
+import {useSearch} from '../SearchContext';
 
 export const ContactContext = createContext<ContactContextType | undefined>(
   undefined,
@@ -24,6 +25,7 @@ export const ContactContext = createContext<ContactContextType | undefined>(
 const CONTACT_KEY = 'contacts';
 
 export const ContactProvider = ({children}: PropsWithChildren) => {
+  const {searchQuery} = useSearch();
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [recentContacts, setRecentContacts] = useState<Contact[]>([]);
   const [permissionsActive, setPermissionsActive] = useState(false);
@@ -33,7 +35,8 @@ export const ContactProvider = ({children}: PropsWithChildren) => {
 
   const handleFindContacts = useCallback(async () => {
     try {
-      const response = await Contacts.getAll();
+      const response = await getContacts(searchQuery);
+      console.log('response', response);
       setContacts(response);
     } catch (error) {
       Alert.alert(
@@ -41,7 +44,7 @@ export const ContactProvider = ({children}: PropsWithChildren) => {
         'Ocurrió un error inesperado en obtener los contactos',
       );
     }
-  }, []);
+  }, [searchQuery]);
 
   const requestPermissionsContact = useCallback(() => {
     requestPermissionsContacts(setPermissionsActive);
@@ -58,9 +61,7 @@ export const ContactProvider = ({children}: PropsWithChildren) => {
 
   const updateContactRecent = useCallback(
     async (parsedContacts: Contact[], newContact: Contact) => {
-      const cleanContact = parsedContacts.filter(
-        c => c.recordID !== newContact.recordID,
-      );
+      const cleanContact = parsedContacts.filter(c => c.id !== newContact.id);
       const updateContacts = [
         ...cleanContact,
         {...newContact, createAt: dayjs().toDate()},
@@ -77,9 +78,7 @@ export const ContactProvider = ({children}: PropsWithChildren) => {
       //Load contacts
       const currentContacts = await AsyncStorage.getItem(CONTACT_KEY);
       const parsedContacts = (JSON.parse(currentContacts) as Contact[]) || [];
-      const findContact = parsedContacts.find(
-        c => c.recordID === newContact.recordID,
-      );
+      const findContact = parsedContacts.find(c => c.id === newContact.id);
 
       if (findContact) {
         updateContactRecent(parsedContacts, newContact);

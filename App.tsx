@@ -4,10 +4,10 @@ import {ContactProvider, SearchProvider} from '@app/context';
 
 export default function App() {
   return (
-    <ContactProvider>
-      <SearchProvider>
+    <SearchProvider>
+      <ContactProvider>
         <Navigation />
-      </SearchProvider>
-    </ContactProvider>
+      </ContactProvider>
+    </SearchProvider>
   );
 }

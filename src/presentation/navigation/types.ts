@@ -1,4 +1,4 @@
-import {Contact} from 'react-native-contacts';
+import {Contact} from '@jesusebzcp/react-native-rncalendar';
 
 export enum SCREEN_NAME {
   SPLASH_SCREEN = 'SPLASH_SCREEN',

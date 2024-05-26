@@ -1,5 +1,5 @@
+import {Contact} from '@jesusebzcp/react-native-rncalendar';
 import {ReactNode} from 'react';
-import {Contact} from 'react-native-contacts';
 
 export type ContactContextType = {
   contacts: Contact[];

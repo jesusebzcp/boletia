@@ -1,7 +1,6 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import dayjs from 'dayjs';
 
 import {useContacts} from '@app/context';
 import {MainStackParamList, SCREEN_NAME} from '@pr/navigation/types';
@@ -15,7 +14,7 @@ import {ContactProps} from './props';
 
 export const Contact = (props: ContactProps) => {
   const {saveRecent} = useContacts();
-  const {displayName, phoneNumbers, thumbnailPath} = props;
+  const {image, name, phoneNumber} = props;
 
   const navigation = useNavigation<NavigationProp<MainStackParamList>>();
 
@@ -26,23 +25,11 @@ export const Contact = (props: ContactProps) => {
     });
   }, [navigation, props, saveRecent]);
 
-  const phoneNumber = useMemo(() => {
-    if (phoneNumbers?.length > 0) {
-      const mainPhoneNumber = phoneNumbers[0];
-      return `📞 ${mainPhoneNumber.number} ● ${
-        props.createAt
-          ? dayjs(props.createAt).format('DD/MM/YYYY hh:mm')
-          : mainPhoneNumber?.label.toUpperCase()
-      }`;
-    }
-    return '';
-  }, [phoneNumbers, props.createAt]);
-
   return (
     <TouchableOpacity style={styles.content} onPress={navigateToDetail}>
-      <Avatar alt={displayName} image={thumbnailPath} />
+      <Avatar alt={name} image={image} />
       <View style={styles.information}>
-        <AppText weight="BOLD">{displayName}</AppText>
+        <AppText weight="BOLD">{name}</AppText>
         <AppText color={COLORS.gray}>{phoneNumber}</AppText>
       </View>
       <View>

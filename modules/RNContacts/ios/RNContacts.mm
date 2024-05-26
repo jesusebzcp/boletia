@@ -14,6 +14,12 @@ RCT_EXTERN_METHOD(getContacts:(NSString *)search
                   withRejecter:(RCTPromiseRejectBlock)reject)
 
 
+RCT_EXTERN_METHOD(checkPermissions:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+
+
+
+
 + (BOOL)requiresMainQueueSetup
 {
   return NO;

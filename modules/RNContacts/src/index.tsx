@@ -18,6 +18,7 @@ const RNContacts = NativeModules.RNContacts
     );
 
 export type Contact = {
+  id: string;
   name: string;
   phoneNumber: string;
   image: string;
@@ -25,6 +26,7 @@ export type Contact = {
 
 type RequestContactsPermission = () => Promise<boolean>;
 type GetContacts = (search?: string) => Promise<Contact[]>;
+type CheckPermissions = () => Promise<boolean>;
 
 export const requestContactsPermission: RequestContactsPermission =
   async () => {
@@ -46,5 +48,15 @@ export const getContacts: GetContacts = async (search?: string) => {
   } catch (error) {
     console.error(error);
     return [];
+  }
+};
+
+export const checkPermissions: CheckPermissions = async () => {
+  try {
+    const permissions = await RNContacts.checkPermissions();
+    return permissions;
+  } catch (error) {
+    console.error(error);
+    return false;
   }
 };
