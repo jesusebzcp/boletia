@@ -18,21 +18,21 @@ export const ContactDetailScreen = ({route}: ContactDetailScreenProps) => {
   const contact = route.params.contact;
 
   const onCall = useCallback(() => {
-    Linking.openURL(`tel:${contact.phoneNumbers[0].number}`);
-  }, [contact.phoneNumbers]);
+    Linking.openURL(`tel:${contact.phoneNumber}`);
+  }, [contact.phoneNumber]);
 
   const onSendSMSMessage = useCallback(async () => {
     const separator = Platform.OS === 'ios' ? '&' : '?';
     const message = 'Esta prueba esta buena.';
-    const url = `sms:${contact.phoneNumbers[0].number}${separator}body=${message}`;
+    const url = `sms:${contact.phoneNumber}${separator}body=${message}`;
     Linking.openURL(url);
-  }, [contact.phoneNumbers]);
+  }, [contact.phoneNumber]);
 
   const onSharedContact = useCallback(async () => {
     Share.open({
-      message: `Mira este contacto => ${contact.displayName} ${contact.phoneNumbers[0].number}`,
+      message: `Mira este contacto => ${contact.name} ${contact.phoneNumber}`,
     });
-  }, [contact.displayName, contact.phoneNumbers]);
+  }, [contact.name, contact.phoneNumber]);
 
   const listActions = useMemo(
     () => [
@@ -61,15 +61,11 @@ export const ContactDetailScreen = ({route}: ContactDetailScreenProps) => {
         <AppHeader title={'Detalle de contacto'} />
         <HeaderContact />
         <ListAction actions={listActions} />
-        {contact.phoneNumbers.map((phoneNumber, index) => {
-          return (
-            <InputSection
-              key={phoneNumber.number}
-              label={`Numero celular ${index + 1}`}
-              value={phoneNumber.number}
-            />
-          );
-        })}
+        <InputSection
+          key={contact.phoneNumber}
+          label={'Numero celular'}
+          value={contact.phoneNumber}
+        />
       </View>
     </SafeAreaView>
   );
