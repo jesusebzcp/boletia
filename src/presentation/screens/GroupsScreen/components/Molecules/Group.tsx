@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useContacts} from '@app/context';
 import {AppText, Avatar} from '@pr/components';
@@ -7,16 +7,19 @@ import {useFocusEffect} from '@react-navigation/native';
 
 export type GroupProps = {
   title: string;
-  onSelect(): void;
+  onSelect?: () => void;
 };
 
 export const Group = ({title, onSelect}: GroupProps) => {
   const {findContactByGroups} = useContacts();
   const [contacts, setContacts] = useState([]);
+  const isOnSelect = useMemo(() => typeof onSelect === 'function', [onSelect]);
 
   const handleSelect = useCallback(() => {
-    onSelect();
-  }, [onSelect]);
+    if (isOnSelect) {
+      onSelect();
+    }
+  }, [isOnSelect, onSelect]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -25,7 +28,10 @@ export const Group = ({title, onSelect}: GroupProps) => {
   );
 
   return (
-    <TouchableOpacity style={styles.group} onPress={handleSelect}>
+    <TouchableOpacity
+      disabled={isOnSelect}
+      style={styles.group}
+      onPress={handleSelect}>
       <Avatar alt={title} />
       <View>
         <AppText.H4 weight="MEDIUM" style={styles.title}>

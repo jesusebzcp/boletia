@@ -23,14 +23,7 @@ export const GroupsOrganisms = () => {
     <FlatList
       ListHeaderComponent={Title}
       data={groups}
-      renderItem={({item}) => (
-        <Group
-          onSelect={function (): void {
-            throw new Error('Function not implemented.');
-          }}
-          {...item}
-        />
-      )}
+      renderItem={({item}) => <Group {...item} />}
     />
   );
 };
