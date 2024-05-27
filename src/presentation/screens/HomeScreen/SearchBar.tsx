@@ -1,13 +1,22 @@
 import React, {useMemo} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 
 import {AppInput} from '@pr/components';
 import {SvgSearch} from '@pr/assets/svg/SvgSearch';
-import {useSearch} from '@app/context';
+import {useContacts, useSearch} from '@app/context';
+import {COLORS} from '@pr/theme';
 
 export const SearchBar = () => {
   const {searchQuery, setSearchQuery} = useSearch();
+  const {isLoadingQueryContacts} = useContacts();
   const _iconRight = useMemo(() => <SvgSearch />, []);
+  const _iconLeft = useMemo(
+    () =>
+      isLoadingQueryContacts ? (
+        <ActivityIndicator animating color={COLORS.primary} />
+      ) : null,
+    [isLoadingQueryContacts],
+  );
   return (
     <View style={styles.content}>
       <AppInput
@@ -16,6 +25,7 @@ export const SearchBar = () => {
           keyboardType: 'name-phone-pad',
         }}
         iconRight={_iconRight}
+        iconLeft={_iconLeft}
         onChangeText={setSearchQuery}
         value={searchQuery}
       />

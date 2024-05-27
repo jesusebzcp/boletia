@@ -1,0 +1,9 @@
+{
+  "name": "@jesusebzcp/rn-contacts",
+  "version": "0.0.0",
+  "description": "native module contacts",
+  "main": "src/index",
+  "author": " <> ()",
+  "license": "UNLICENSED",
+  "homepage": "#readme"
+}

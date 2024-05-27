@@ -7,4 +7,5 @@ export type AppInputProps = {
   value?: string;
   onChangeText?: (text: string) => void;
   iconRight?: ReactNode;
+  iconLeft?: ReactNode;
 };

@@ -1,6 +1,7 @@
 import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Contact as ContactType} from 'react-native-contacts';
+import {Contact as ContactType} from '@jesusebzcp/rn-contacts';
+
 import BottomSheet, {BottomSheetFlatList} from '@gorhom/bottom-sheet';
 
 import {useSearch} from '@app/context';
@@ -45,14 +46,17 @@ export const ListModalContacts = ({
 
   const filterSearch = useCallback(
     (contactsList: ContactType[]) => {
+      if (selectButton === SELECT_BUTTON.ALL) {
+        return contacts;
+      }
       if (searchQuery.length > 2) {
         return contactsList.filter(c =>
-          cleanKeyword(c.displayName)?.includes(cleanKeyword(searchQuery)),
+          cleanKeyword(c.name)?.includes(cleanKeyword(searchQuery)),
         );
       }
       return contactsList;
     },
-    [searchQuery],
+    [contacts, searchQuery, selectButton],
   );
 
   const contactsFilter = useMemo(() => {

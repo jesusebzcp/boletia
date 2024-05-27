@@ -1,44 +1,39 @@
-import {useCallback} from 'react';
-import {Platform} from 'react-native';
+import {useCallback, useEffect, useState} from 'react';
 
-import {PERMISSIONS, check, request} from 'react-native-permissions';
+import {
+  checkPermissions,
+  requestContactsPermission,
+} from '@jesusebzcp/rn-contacts';
 
 export const usePermissionsContacts = () => {
-  const checkPermissionsContacts = useCallback(
-    async (setValue: (value: boolean) => void) => {
-      try {
-        const checkPermissions = Platform.select({
-          android: () => check(PERMISSIONS.ANDROID.READ_CONTACTS),
-          ios: () => check(PERMISSIONS.IOS.CONTACTS),
-        });
-        const response = (await checkPermissions()) as PermissionState;
-        setValue(response === 'granted');
-      } catch (error) {
-        setValue(false);
-      }
-    },
-    [],
-  );
-  const requestPermissionsContacts = useCallback(
-    async (setValue: (value: boolean) => void) => {
-      try {
-        const requestPermissions = Platform.select({
-          android: () => request(PERMISSIONS.ANDROID.READ_CONTACTS),
-          ios: () => request(PERMISSIONS.IOS.CONTACTS),
-        });
-        const response = (await requestPermissions()) as PermissionState;
-        console.log('response', response);
-        setValue(response === 'granted');
-      } catch (error) {
-        console.log('error', error);
-        setValue(false);
-      }
-    },
-    [],
-  );
+  const [permissionsActive, setPermissionsActive] = useState(false);
+  const [isLoadingCheck, setIsLoadingCheck] = useState(false);
+
+  const checkPermissionsContacts = useCallback(async () => {
+    try {
+      setIsLoadingCheck(true);
+      const permissions = await checkPermissions();
+      setPermissionsActive(permissions);
+    } catch (error) {
+      setPermissionsActive(false);
+    } finally {
+      setIsLoadingCheck(false);
+    }
+  }, []);
+
+  const requestPermissionsContacts = useCallback(async () => {
+    const permissions = await requestContactsPermission();
+    setPermissionsActive(permissions);
+  }, []);
+
+  useEffect(() => {
+    checkPermissionsContacts();
+  }, [checkPermissionsContacts]);
 
   return {
     checkPermissionsContacts,
     requestPermissionsContacts,
+    permissionsActive,
+    isLoadingCheck,
   };
 };
