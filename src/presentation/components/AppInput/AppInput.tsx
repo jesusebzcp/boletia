@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
   input: {
     height: 56,
     color: COLORS.gray,
+    flex: 1,
   },
   iconLeft: {
     position: 'absolute',
